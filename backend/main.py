@@ -1,7 +1,12 @@
 import panelutils 
+from pathlib import Path
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles # 1. Impor StaticFiles
 
 app = FastAPI()
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
 @app.get("/stats")
 async def get_stats():
@@ -20,12 +25,4 @@ async def get_stats():
         }
     }   
 
-@app.get("/")
-async def get_index(request: Request):
-    return {
-        "message": "Welcome to the Ambatus Server Panel API",
-        "endpoints": {
-            "/stats": "Get system statistics (CPU, memory, storage)",
-            "/": "Get this index message"
-        }
-    }
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
