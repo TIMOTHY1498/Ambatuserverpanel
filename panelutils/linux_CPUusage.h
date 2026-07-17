@@ -58,7 +58,5 @@ double get_cpu_usage() {
     }
 
     double cpu_usage = ((double)(delta_total - delta_idle) / delta_total) * 100.0;
-
-    printf("Total System CPU Usage: %.2f%%\n", cpu_usage);
     return cpu_usage;
 }

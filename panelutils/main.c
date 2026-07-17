@@ -51,7 +51,7 @@ static PyMethodDef CCUtilsMethods[] = {
 
 static struct PyModuleDef ccutilsmodule = {
     PyModuleDef_HEAD_INIT,
-    "cc_utils",   /* name of module */
+    "panelutils",   /* name of module */
     NULL,         /* module documentation, may be NULL */
     -1,           /* size of per-interpreter state of the module,
                      or -1 if the module keeps state in global variables. */
