@@ -2,6 +2,7 @@
 
 #include "linux_CPUusage.h"
 #include "linux_RAMusage.h"
+#include "linux_storageINFO.h"
 
 static PyObject* get_cpu_usage2(PyObject* self, PyObject* args) {    
     double cpu_usage = get_cpu_usage();
@@ -38,7 +39,7 @@ static PyObject* get_free_storage2(PyObject* self, PyObject* args) {
     return Py_BuildValue("l", free_storage);
 }
 
-static PyMethodDef CCUtilsMethods[] = {
+static PyMethodDef METHODS_panelutils[] = {
     {"get_cpu_usage", get_cpu_usage2, METH_NOARGS, "Get CPU usage percentage."},
     {"get_mem_usage", get_mem_usage2, METH_NOARGS, "Get used memory in MB."},
     {"get_total_mem", get_total_mem2, METH_NOARGS, "Get total memory in MB."},
@@ -49,15 +50,15 @@ static PyMethodDef CCUtilsMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef ccutilsmodule = {
+static struct PyModuleDef panelutilsmodule = {
     PyModuleDef_HEAD_INIT,
     "panelutils",   /* name of module */
     NULL,         /* module documentation, may be NULL */
     -1,           /* size of per-interpreter state of the module,
                      or -1 if the module keeps state in global variables. */
-    CCUtilsMethods
+    METHODS_panelutils
 };
 
-PyMODINIT_FUNC PyInit_cc_utils(void) {
-    return PyModule_Create(&ccutilsmodule);
+PyMODINIT_FUNC PyInit_panelutils(void) {
+    return PyModule_Create(&panelutilsmodule);
 }

@@ -1,16 +1,16 @@
 #include <stdio.h>
-#include <sys/sysinfo.h>
+#include <sys/statfs.h>
 
 long get_storage_usage() {
-    struct sysinfo info;
+    struct statfs info;
 
-    if (sysinfo(&info) != 0) {
-        perror("sysinfo failed");
+    if (statfs("/", &info) != 0) {
+        perror("statfs failed");
         return 1;
     }
 
-    unsigned long total_storage = (info.totalram * info.mem_unit) / (1024 * 1024);
-    unsigned long free_storage = (info.freeram * info.mem_unit) / (1024 * 1024);
+    unsigned long total_storage = (info.f_blocks * info.f_bsize) / (1024 * 1024);
+    unsigned long free_storage = (info.f_bfree * info.f_bsize) / (1024 * 1024);
     unsigned long used_storage = total_storage - free_storage;
 
     // printf("Total System Storage: %lu MB\n", total_storage);
@@ -21,23 +21,23 @@ long get_storage_usage() {
 }
 
 long get_total_storage() {
-    struct sysinfo info;
+    struct statfs info;
 
-    if (sysinfo(&info) != 0) {
-        perror("sysinfo failed");
+    if (statfs("/", &info) != 0) {
+        perror("statfs failed");
         return 1;
     }
-    unsigned long total_storage = (info.totalram * info.mem_unit) / (1024 * 1024);
+    unsigned long total_storage = (info.f_blocks * info.f_bsize) / (1024 * 1024);
     return total_storage;
 }
 
 long get_free_storage() {
-    struct sysinfo info;
+    struct statfs info;
 
-    if (sysinfo(&info) != 0) {
-        perror("sysinfo failed");
+    if (statfs("/", &info) != 0) {
+        perror("statfs failed");
         return 1;
     }
-    unsigned long free_storage = (info.freeram * info.mem_unit) / (1024 * 1024);
+    unsigned long free_storage = (info.f_bfree * info.f_bsize) / (1024 * 1024);
     return free_storage;
 }
