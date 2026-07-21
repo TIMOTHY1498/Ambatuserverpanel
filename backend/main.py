@@ -2,7 +2,7 @@ import panelutils
 from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles # 1. Impor StaticFiles
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
